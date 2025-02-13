@@ -72,7 +72,7 @@ return(
       <Header/>
       <div style={{marginTop:"10px"}}>
       <h1 style={{color:"grey"}}>{dealer.full_name}{postReview}</h1>
-      <h4  style={{color:"grey"}}>{dealer['city']},{dealer['address']}, Zip - {dealer['zip']}, {dealer['state']} </h4>
+      {/* <h4  style={{color:"grey"}}>{dealer['city']},{dealer['address']}, Zip - {dealer['zip']}, {dealer['state']} </h4> */}
       </div>
       <div class="reviews_panel">
       {reviews.length === 0 && unreviewed === false ? (
