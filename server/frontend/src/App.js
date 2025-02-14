@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Dealers from './components/Dealers/Dealers';
 import Dealer from "./components/Dealers/Dealer";
 import PostReview from "./components/Dealers/PostReview"
-/* jshint esversion: 8 */
+
 
 function App() {
   return (
