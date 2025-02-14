@@ -4,6 +4,8 @@ import "./Dealers.css";
 import "../assets/style.css";
 import Header from '../Header/Header';
 
+/* jshint esversion: 8 */
+
 
 const PostReview = () => {
   const [dealer, setDealer] = useState({});
