@@ -11,21 +11,10 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from .models import CarMake, CarModel
 
-from django.http import JsonResponse
-from .restapis import get_request
-from .restapis import get_request, analyze_review_sentiments, post_review
-
-
-
+from .restapis import get_request, analyze_review_sentiments
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
-
-
-# Create your views here.
-
-# get cars
-
 
 def get_cars(request):
     count = CarMake.objects.filter().count()
@@ -134,9 +123,6 @@ def get_dealer_reviews(request, dealer_id):
                 {"status": 500, "message": "Failed to fetch reviews"})
     else:
         return JsonResponse({"status": 400, "message": "Bad Request"})
-
-
-# Create a `get_dealer_details` view to render the dealer details
 
 
 # Create a `add_review` view to submit a review
