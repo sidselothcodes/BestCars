@@ -40,12 +40,12 @@ def login_user(request):
 
     # Try to check if provided credentials can be authenticated
     user = authenticate(username=username, password=password)
-    
+
     if user is not None:
         # If user is valid, log them in
         login(request, user)
         return JsonResponse({"userName": username, "status": "Authenticated"})
-    
+
     return JsonResponse({"userName": username})
 
 
@@ -76,7 +76,11 @@ def registration(request):
 
     # Create and login new user
     user = User.objects.create_user(
-        username=username, first_name=first_name, last_name=last_name, password=password, email=email
+        username=username,
+        first_name=first_name,
+        last_name=last_name,
+        password=password,
+        email=email,
     )
     login(request, user)
     return JsonResponse({"userName": username, "status": "Authenticated"})
@@ -90,7 +94,7 @@ def get_dealer_details(request, dealer_id):
         if dealership:
             return JsonResponse({"status": 200, "dealer": dealership})
         return JsonResponse({"status": 404, "message": "Dealer not found"})
-    
+
     return JsonResponse({"status": 400, "message": "Bad Request"})
 
 
@@ -105,8 +109,11 @@ def get_dealer_reviews(request, dealer_id):
 
         if reviews:
             for review_detail in reviews:
-                response = analyze_review_sentiments(review_detail["review"])
-                review_detail["sentiment"] = response["sentiment"]
+                sentiment_response = analyze_review_sentiments(
+                    review_detail["review"]
+                )
+                review_detail["sentiment"] = sentiment_response["sentiment"]
+
             return JsonResponse({"status": 200, "reviews": reviews})
 
         return JsonResponse({"status": 500, "message": "Failed to fetch reviews"})
@@ -119,14 +126,17 @@ def get_dealer_reviews(request, dealer_id):
 def add_review(request):
     """Handles review submissions."""
     if request.user.is_authenticated:
-        data = json.loads(request.body)
         try:
             # response = post_review(data)  # Uncomment when function is available
-            return JsonResponse({"status": 200, "message": "Review posted successfully"})
+            return JsonResponse(
+                {"status": 200, "message": "Review posted successfully"}
+            )
         except Exception as err:
             print(f"Error: {err}")
-            return JsonResponse({"status": 401, "message": "Error in posting review"})
-    
+            return JsonResponse(
+                {"status": 401, "message": "Error in posting review"}
+            )
+
     return JsonResponse({"status": 403, "message": "Unauthorized"})
 
 
