@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import CarMake, CarModel
 from .restapis import get_request, analyze_review_sentiments
 
+
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -44,7 +45,8 @@ def login_user(request):
     if user is not None:
         # If user is valid, log them in
         login(request, user)
-        return JsonResponse({"userName": username, "status": "Authenticated"})
+        return JsonResponse({"userName": username, 
+                             "status": "Authenticated"})
 
     return JsonResponse({"userName": username})
 
@@ -70,7 +72,9 @@ def registration(request):
     # Check if user already exists
     try:
         User.objects.get(username=username)
-        return JsonResponse({"userName": username, "error": "Already Registered"})
+        return JsonResponse(
+            {"userName": username, 
+             "error": "Already Registered"})
     except User.DoesNotExist:
         logger.debug(f"{username} is a new user")
 
@@ -83,7 +87,8 @@ def registration(request):
         email=email,
     )
     login(request, user)
-    return JsonResponse({"userName": username, "status": "Authenticated"})
+    return JsonResponse({"userName": username, 
+                         "status": "Authenticated"})
 
 
 def get_dealer_details(request, dealer_id):
@@ -116,7 +121,9 @@ def get_dealer_reviews(request, dealer_id):
 
             return JsonResponse({"status": 200, "reviews": reviews})
 
-        return JsonResponse({"status": 500, "message": "Failed to fetch reviews"})
+        return JsonResponse(
+            {"status": 500, 
+             "message": "Failed to fetch reviews"})
 
     return JsonResponse({"status": 400, "message": "Bad Request"})
 
@@ -127,7 +134,7 @@ def add_review(request):
     """Handles review submissions."""
     if request.user.is_authenticated:
         try:
-            # response = post_review(data)  # Uncomment when function is available
+            #response = post_review(data)
             return JsonResponse(
                 {"status": 200, "message": "Review posted successfully"}
             )
