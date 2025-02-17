@@ -12,6 +12,7 @@ from .models import CarMake, CarModel
 from .restapis import get_request, analyze_review_sentiments
 
 
+
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -134,7 +135,7 @@ def add_review(request):
     """Handles review submissions."""
     if request.user.is_authenticated:
         try:
-            #response = post_review(data)
+            response = post_review(data)
             return JsonResponse(
                 {"status": 200, "message": "Review posted successfully"}
             )
@@ -152,3 +153,4 @@ def get_dealerships(request, state="All"):
     endpoint = "/fetchDealers" if state == "All" else f"/fetchDealers/{state}"
     dealerships = get_request(endpoint)
     return JsonResponse({"status": 200, "dealers": dealerships})
+

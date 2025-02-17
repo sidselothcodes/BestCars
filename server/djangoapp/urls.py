@@ -5,6 +5,7 @@ from django.conf import settings
 from . import views
 
 
+
 app_name = "djangoapp"
 urlpatterns = [
     # # path for registration
